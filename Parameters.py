@@ -5,12 +5,12 @@ N = np.empty((num_channels, 3))
 for i in range(N.shape[0]): N[i,] = [1, 0, 0]
 electrodeParameters = {
     'sigma' : 0.3,              # Extracellular potential
-    'x' : np.zeros(num_channels),# + 25,      # x,y,z-coordinates of electrode contacts
+    'x' : np.zeros(num_channels), # x,y,z-coordinates of electrode contacts
     'y' : np.zeros(num_channels),
-    # 'z' : np.linspace(-500,1000,16),
-    'z' : np.linspace(-1600, -100, num_channels),#kan gjøre alle dybdene her, men da blir l23 pop en kopi av l5, celle til celle. også litt tufs gitt forskjellige pop-strl
+    'z' : np.linspace(-1600, -100, num_channels),
     'z_L5': np.linspace(-1600, -100, num_channels),
     'z_L23': np.linspace(-3100, -100, num_channels),
+    'z_L6': np.linspace(-1600, -100, num_channels),
     'n' : 20,
     'r' : 10,
     'N' : N,
@@ -37,7 +37,7 @@ common_parameters = {
 }
 
 L5_parameters={
-    'num_cells':1000, #wanted 6k but that failed
+    'num_cells':10, #wanted 6k but that failed
     'n_syn':200, #JFK: NEED SOME REAL NUMBER HERE 200 is ok
     'heights':{
         'max':1000.,
@@ -55,7 +55,7 @@ L5_parameters={
         # 'tau1': .2, #used 5
         # 'tau2': .3, #used 6
         'syntype': 'ExpSynI',
-        'tau':2. ** -3,#.1, #used 1.0 for most long runs
+        'tau':1,#2. ** -3,#.1, #used 1.0 for most long runs
         'weight': .1001,  # synaptic weight
         'excitatory_weight':.1,
         'inhibitory_weight':-.1,
@@ -64,20 +64,42 @@ L5_parameters={
 }
 
 L23_parameters={
-    'num_cells':1000,
+    'num_cells':10,
     'n_syn':200,
     'heights':{
         'max':1000.,
         'min':-1000.,
         'basal_max':-50.,
         'apical_min':500.,
-        'soma': -1250.+200., #hvorfor +200? dytte den opp fra bunnen av L3
+        'soma': -1250.+200., #200 is added to push soma up from the bottom of L3
     },
     'synapse_parameters':{
         'idx': [],
         'e':0.,
         'syntype': 'ExpSynI',
-        'tau':2. ** -3,#1.,
+        'tau':1,#2. ** -3,#1.,
+        'weight': .1001,  # synaptic weight
+        'excitatory_weight': .1,
+        'inhibitory_weight': -.1,
+        'record_current': True,  # record synapse current
+    },
+}
+
+L6_parameters={
+    'num_cells':10,
+    'n_syn':200,
+    'heights':{
+        'max':1000.,
+        'min':-1000.,
+        'basal_max':-50.,
+        'apical_min':500.,
+        'soma': -1700., #about center of markram L6
+    },
+    'synapse_parameters':{
+        'idx': [],
+        'e':0.,
+        'syntype': 'ExpSynI',
+        'tau':1,#2. ** -3,#1.,
         'weight': .1001,  # synaptic weight
         'excitatory_weight': .1,
         'inhibitory_weight': -.1,
