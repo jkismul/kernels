@@ -13,13 +13,15 @@ except OSError:
 # </editor-fold>
 
 populations=['L5','L23']#,'L6']
-populations=['L5','L23','L6']
+# populations=['L5','L23','L6']
 
 synapse_positions = ['apic','bas']
 pos_names=['a','b']
 synapse_types = ['excitatory','inhibitory']
 type_names = ['e','i']
-params = [L5_parameters,L23_parameters,L6_parameters]
+params = [L5_parameters,L23_parameters]#,L6_parameters]
+# params = [L5_parameters,L23_parameters,L6_parameters]
+
 num_tsteps = 1+len(np.arange(0,
                            common_parameters['cell_parameters']['tstop'],
                            common_parameters['cell_parameters']['dt']))
